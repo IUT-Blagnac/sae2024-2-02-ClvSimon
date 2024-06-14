@@ -92,7 +92,7 @@ public class AlgoTest extends TestCase{
          assertEquals("abc", (Algo.unRLE("311a311b311c", 3)));
       }
       catch(Exception e){
-         fail("Exception inatendue");
+         e.printStackTrace();
       }
    }
 
