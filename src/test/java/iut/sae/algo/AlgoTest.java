@@ -1,5 +1,9 @@
 package iut.sae.algo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import org.junit.Test;
 import junit.framework.TestCase;
 
@@ -95,5 +99,129 @@ public class AlgoTest extends TestCase{
          e.printStackTrace();
       }
    }
+
+// algo des tests supplémentaire : 
+
+
+
+@Test
+      public void testRLESupplementaire() {
+        // Tests supplémentaires
+        assertEquals("1!1@1#", Algo.RLE("!@#"));
+        assertEquals("2!2@2#", Algo.RLE("!!@@##"));
+        
+        StringBuilder input = new StringBuilder();
+        for (int i = 0; i < 1000; i++) {
+            input.append("a");
+        }
+        assertEquals("1000a", Algo.RLE(input.toString()));
+        
+        assertEquals("12a", Algo.RLE("aaaaaaaaaaaa")); // 12 'a's
+    }
+
+
+    @Test
+    public void testUnRLESupplementaire() {
+        try {
+            // Tests supplémentaires
+            assertEquals("!@#", Algo.unRLE("1!1@1#"));
+            assertEquals("!!@@##", Algo.unRLE("2!2@2#"));
+            
+            StringBuilder expected = new StringBuilder();
+            for (int i = 0; i < 1000; i++) {
+                expected.append("a");
+            }
+            assertEquals(expected.toString(), Algo.unRLE("1000a"));
+            
+            try {
+                Algo.unRLE("a1b2c"); // Invalid format
+                fail("Exception expected for invalid RLE format");
+            } catch (AlgoException e) {
+                // Expected exception
+            }
+        } catch (AlgoException e) {
+            fail("Exception inattendue: " + e.getMessage());
+        }
+    }
+
+
+    @Test
+    public void testRLERecursifSupplementaire() {
+        try {
+            // Tests supplémentaires
+            assertEquals("1!1@1#", Algo.RLE("!@#", 1));
+            assertEquals("2!2@2#", Algo.RLE("!!@@##", 1));
+            
+            StringBuilder input = new StringBuilder();
+            for (int i = 0; i < 1000; i++) {
+                input.append("a");
+            }
+            assertEquals("1000a", Algo.RLE(input.toString(), 1));
+            
+            assertEquals("12a", Algo.RLE("aaaaaaaaaaaa", 1)); // 12 'a's
+            
+            assertEquals("31a31b31c", Algo.RLE("abc", 3));
+        } catch (AlgoException e) {
+            fail("Exception inattendue: " + e.getMessage());
+        }
+    }
+
+
+    @Test
+    public void testUnRLERecursifSupplementaire() {
+        try {
+            // Tests supplémentaires
+            assertEquals("!@#", Algo.unRLE("1!1@1#", 1));
+            assertEquals("!!@@##", Algo.unRLE("2!2@2#", 1));
+            
+            StringBuilder expected = new StringBuilder();
+            for (int i = 0; i < 1000; i++) {
+                expected.append("a");
+            }
+            assertEquals(expected.toString(), Algo.unRLE("1000a", 1));
+            
+            try {
+                Algo.unRLE("a1b2c", 1); // Invalid format
+                fail("Exception expected for invalid RLE format");
+            } catch (AlgoException e) {
+                // Expected exception
+            }
+            
+            assertEquals("abc", Algo.unRLE("31a31b31c", 3));
+        } catch (AlgoException e) {
+            fail("Exception inattendue: " + e.getMessage());
+        }
+    }
+
+
+    @Test
+    public void testJavaUtil() {
+        File file = new File("src/iut/sae/algo/Algo.java");
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.contains("import java.util")) {
+                    fail("Usage of java.util is not allowed.");
+                }
+            }
+        } catch (FileNotFoundException e) {
+            fail("Algo.java file not found.");
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
