@@ -1,6 +1,6 @@
 package iut.sae.algo;
 
-public class Algo{
+public class AlgoS31{
     
     public static String RLE(String in){
        

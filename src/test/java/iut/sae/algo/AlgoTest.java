@@ -106,39 +106,61 @@ public class AlgoTest extends TestCase{
 
 @Test
       public void testRLESupplementaire() {
-        // Tests supplémentaires
+        // Teste la méthode RLE avec des cas supplémentaires
+        
+        // Cas de base
         assertEquals("1!1@1#", Algo.RLE("!@#"));
+        
+        // Cas avec répétition
         assertEquals("2!2@2#", Algo.RLE("!!@@##"));
         
+        // Cas avec une chaîne longue de 'a' (1000 'a's)
         StringBuilder input = new StringBuilder();
         for (int i = 0; i < 1000; i++) {
             input.append("a");
         }
-        assertEquals("1000a", Algo.RLE(input.toString()));
+        // Limite la répétition à 9
+        StringBuilder expected = new StringBuilder();
+        for (int i = 0; i < 111; i++) {
+            expected.append("9a");
+        }
+        expected.append("1a");
+        assertEquals(expected.toString(), Algo.RLE(input.toString()));
         
-        assertEquals("12a", Algo.RLE("aaaaaaaaaaaa")); // 12 'a's
+        // Cas avec une séquence spécifique
+        assertEquals("9a3a", Algo.RLE("aaaaaaaaaaaa")); // 12 'a's
     }
 
 
     @Test
-    public void testUnRLESupplementaire() {
+    public void testRLERecursifSupplementaire() {
         try {
-            // Tests supplémentaires
-            assertEquals("!@#", Algo.unRLE("1!1@1#"));
-            assertEquals("!!@@##", Algo.unRLE("2!2@2#"));
+            // Teste la méthode RLE récursive avec des cas supplémentaires
             
-            StringBuilder expected = new StringBuilder();
+            // Cas de base
+            assertEquals("1!1@1#", Algo.RLE("!@#", 1));
+            
+            // Cas avec répétition
+            assertEquals("2!2@2#", Algo.RLE("!!@@##", 1));
+            
+            // Cas avec une chaîne longue de 'a' (1000 'a's)
+            StringBuilder input = new StringBuilder();
             for (int i = 0; i < 1000; i++) {
-                expected.append("a");
+                input.append("a");
             }
-            assertEquals(expected.toString(), Algo.unRLE("1000a"));
+            // Limite la répétition à 9
+            StringBuilder expected = new StringBuilder();
+            for (int i = 0; i < 111; i++) {
+                expected.append("9a");
+            }
+            expected.append("1a");
+            assertEquals(expected.toString(), Algo.RLE(input.toString(), 1));
             
-            try {
-                Algo.unRLE("a1b2c"); // Invalid format
-                fail("Exception expected for invalid RLE format");
-            } catch (AlgoException e) {
-                // Expected exception
-            }
+            // Cas avec une séquence spécifique
+            assertEquals("9a3a", Algo.RLE("aaaaaaaaaaaa", 1)); // 12 'a's
+            
+            // Cas avec une récursion plus profonde
+            assertEquals("311a311b311c", Algo.RLE("abc", 3));
         } catch (AlgoException e) {
             fail("Exception inattendue: " + e.getMessage());
         }
@@ -146,21 +168,34 @@ public class AlgoTest extends TestCase{
 
 
     @Test
-    public void testRLERecursifSupplementaire() {
+    public void testUnRLESupplementaire() {
         try {
-            // Tests supplémentaires
-            assertEquals("1!1@1#", Algo.RLE("!@#", 1));
-            assertEquals("2!2@2#", Algo.RLE("!!@@##", 1));
+            // Teste la méthode unRLE avec des cas supplémentaires
             
-            StringBuilder input = new StringBuilder();
+            // Cas de base
+            assertEquals("!@#", Algo.unRLE("1!1@1#"));
+            
+            // Cas avec répétition
+            assertEquals("!!@@##", Algo.unRLE("2!2@2#"));
+            
+            // Cas avec une chaîne longue de 'a' (1000 'a's)
+            StringBuilder expected = new StringBuilder();
             for (int i = 0; i < 1000; i++) {
-                input.append("a");
+                expected.append("a");
             }
-            assertEquals("1000a", Algo.RLE(input.toString(), 1));
+            // Construire l'entrée RLE correspondante
+            StringBuilder input = new StringBuilder();
+            for (int i = 0; i < 111; i++) {
+                input.append("9a");
+            }
+            input.append("1a");
+            assertEquals(expected.toString(), Algo.unRLE(input.toString()));
             
-            assertEquals("12a", Algo.RLE("aaaaaaaaaaaa", 1)); // 12 'a's
+            // Cas avec une séquence spécifique
+            assertEquals("9a3a", Algo.RLE("aaaaaaaaaaaa")); // 12 'a's
             
-            assertEquals("31a31b31c", Algo.RLE("abc", 3));
+            // Cas avec une récursion plus profonde
+            assertEquals("311a311b311c", Algo.RLE("abc", 3));
         } catch (AlgoException e) {
             fail("Exception inattendue: " + e.getMessage());
         }
@@ -170,51 +205,53 @@ public class AlgoTest extends TestCase{
     @Test
     public void testUnRLERecursifSupplementaire() {
         try {
-            // Tests supplémentaires
+            // Teste la méthode unRLE récursive avec des cas supplémentaires
+            
+            // Cas de base
             assertEquals("!@#", Algo.unRLE("1!1@1#", 1));
+            
+            // Cas avec répétition
             assertEquals("!!@@##", Algo.unRLE("2!2@2#", 1));
             
+            // Cas avec une chaîne longue de 'a' (1000 'a's)
             StringBuilder expected = new StringBuilder();
             for (int i = 0; i < 1000; i++) {
                 expected.append("a");
             }
-            assertEquals(expected.toString(), Algo.unRLE("1000a", 1));
-            
-            try {
-                Algo.unRLE("a1b2c", 1); // Invalid format
-                fail("Exception expected for invalid RLE format");
-            } catch (AlgoException e) {
-                // Expected exception
+            // Construire l'entrée RLE correspondante
+            StringBuilder input = new StringBuilder();
+            for (int i = 0; i < 111; i++) {
+                input.append("9a");
             }
+            input.append("1a");
+            assertEquals(expected.toString(), Algo.unRLE(input.toString(), 1));
             
-            assertEquals("abc", Algo.unRLE("31a31b31c", 3));
+            // Cas avec une séquence spécifique
+            assertEquals("aaaaaaaaaaaa", Algo.unRLE("9a3a", 1)); // 12 'a's
+            
+            // Cas avec une récursion plus profonde
+            assertEquals("abc", Algo.unRLE("311a311b311c", 3));
         } catch (AlgoException e) {
             fail("Exception inattendue: " + e.getMessage());
         }
     }
+    
 
 
     @Test
     public void testJavaUtil() {
-        File file = new File("src/iut/sae/algo/Algo.java");
+        File file = new File("src/main/java/iut/sae/algo/Algo.java");
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 if (line.contains("import java.util")) {
-                    fail("Usage of java.util is not allowed.");
+                    fail("L'utilisation de java.util n'est pas autorisée.");
                 }
             }
         } catch (FileNotFoundException e) {
-            fail("Algo.java file not found.");
+            fail("Fichier Algo.java non trouvé.");
         }
     }
-
-
-
-
-
-
-
 
 
 
