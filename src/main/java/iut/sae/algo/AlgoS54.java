@@ -1,3 +1,5 @@
+package iut.sae.algo;
+
 
 public class AlgoS54 {
 

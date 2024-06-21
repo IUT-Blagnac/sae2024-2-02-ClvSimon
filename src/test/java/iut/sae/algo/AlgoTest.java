@@ -20,7 +20,6 @@ public class AlgoTest extends TestCase{
    @Test
    public void testRLE(){
       assertEquals("", Algo.RLE("") );
-      
       assertEquals("1a1b1c", Algo.RLE("abc"));
       assertEquals("1a2b3c", Algo.RLE("abbccc"));
       assertEquals("3a1b2a", Algo.RLE("aaabaa"));
@@ -161,7 +160,7 @@ public class AlgoTest extends TestCase{
             
             // Cas avec une récursion plus profonde
             assertEquals("311a311b311c", Algo.RLE("abc", 3));
-        } catch (AlgoException e) {
+        } catch (Exception e) {
             fail("Exception inattendue: " + e.getMessage());
         }
     }
@@ -196,7 +195,7 @@ public class AlgoTest extends TestCase{
             
             // Cas avec une récursion plus profonde
             assertEquals("311a311b311c", Algo.RLE("abc", 3));
-        } catch (AlgoException e) {
+        } catch (Exception e) {
             fail("Exception inattendue: " + e.getMessage());
         }
     }
@@ -231,7 +230,7 @@ public class AlgoTest extends TestCase{
             
             // Cas avec une récursion plus profonde
             assertEquals("abc", Algo.unRLE("311a311b311c", 3));
-        } catch (AlgoException e) {
+        } catch (Exception e) {
             fail("Exception inattendue: " + e.getMessage());
         }
     }
