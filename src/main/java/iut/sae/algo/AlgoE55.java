@@ -27,7 +27,6 @@ public class AlgoE55 {
             }
         }
         result.append(count).append(prevChar);
-
         return result.toString();
     }
 

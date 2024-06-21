@@ -17,6 +17,9 @@ public class AlgoTest extends TestCase{
  * RLE("aaabaa")="3a1b2a"
  * RLE("aAa")="1a1A1a"
  */
+
+
+
    @Test
    public void testRLE(){
       assertEquals("", Algo.RLE("") );
@@ -55,15 +58,6 @@ public class AlgoTest extends TestCase{
       }
    }
 
-   /*
-  * unRLE(RLE(str))=str
-  *
-  * unRLE("")=""
-  * unRLE("1a1b1c")="abc"
-  * unRLE("1a2b3c")="abbccc"
-  * unRLE("3a1b2a")="aaabaa"
-  * unRLE("1a1A1a")="aAa"
-  */
 
    @Test
    public void testUnRLE(){
@@ -259,5 +253,5 @@ public class AlgoTest extends TestCase{
 
 
 
-
 }
+
